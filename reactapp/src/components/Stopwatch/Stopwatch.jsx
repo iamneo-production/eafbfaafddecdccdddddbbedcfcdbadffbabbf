@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import './Stopwatch.css';
 
 function formatNumber(value) {
 	if (`${value}`.length === 1) {
@@ -8,9 +9,6 @@ function formatNumber(value) {
 }
 
 function Stopwatch() {
-	// const [hours, setHours] = useState(0);
-	// const [minutes, setMinutes] = useState(0);
-	// const [seconds, setSeconds] = useState(0);
 	const [showStart, setShowStart] = useState(true);
 	const [showResume, setshowResume] = useState(false);
 	const [timer, setTimer] = useState(0);
@@ -48,35 +46,59 @@ function Stopwatch() {
 		}, 1000);
 	}
 
-	return (
-		<div>
-			<p data-testid="time">
-				{formatNumber(hours)}:{formatNumber(minutes)}:{formatNumber(seconds)}
-			</p>
-			{showStart ? (
-				<button data-testid="start" onClick={startClickHandler}>
+	function initialButton() {
+		if (showStart) {
+			return (
+				<button
+					className="button"
+					data-testid="start"
+					onClick={startClickHandler}
+				>
 					Start
 				</button>
-			) : (
-				<div>
-					{showResume ? (
-						<button data-testid="resume" onClick={resumeClickHandler}>
-							Resume
-						</button>
-					) : (
-						<button data-testid="pause" onClick={pauseClickHandler}>
-							Pause
-						</button>
-					)}
-				</div>
-			)}
+			);
+		}
+
+		if (showResume) {
+			return (
+				<button
+					className="button"
+					data-testid="resume"
+					onClick={resumeClickHandler}
+				>
+					Resume
+				</button>
+			);
+		}
+
+		return (
+			<button
+				className="button"
+				data-testid="pause"
+				onClick={pauseClickHandler}
+			>
+				Pause
+			</button>
+		);
+	}
+
+	return (
+		<div className="stopwatch-wrapper">
+			<div className="top-box" />
+			<h1 className="header">React Stopwatch</h1>
+			<p className="time" data-testid="time">
+				{formatNumber(hours)}:{formatNumber(minutes)}:{formatNumber(seconds)}
+			</p>
+			{initialButton()}
 			<button
 				data-testid="reset"
+				className="button"
 				onClick={resetClickHandler}
 				disabled={showStart}
 			>
 				Reset
 			</button>
+			<div className="bottom-box" />
 		</div>
 	);
 }
