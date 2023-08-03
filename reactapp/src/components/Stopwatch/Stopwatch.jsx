@@ -42,7 +42,7 @@ function Stopwatch() {
 			) : (
 				<button data-testid="pause">Pause</button>
 			)}
-			<button data-testId="reset" onClick={resetClickHandler} disabled={showStart}>
+			<button data-testid="reset" onClick={resetClickHandler} disabled={showStart}>
 				Reset
 			</button>
 		</div>
